@@ -13,15 +13,15 @@
         var dia = parseInt(day);
         var mes = parseInt(month);
         var ano = parseInt(year);
-
+		
         while (dia > 0 & mes > 0 & ano > 0) {
 
-            if (anoB % 4 == 0) {
+            if (ano % 4 == 0) {
                 anoB = true;
             }
-            else if (anoB % 100 == 0) {
+            else if (ano % 100 == 0) {
                 anoB = false;
-            } else if (anoB % 400 == 0) {
+            } else if (ano % 400 == 0) {
                 anoB = true;
             }
 
@@ -79,6 +79,7 @@
                 if (dia < 29) {
                     dia = dia + 1;
                     document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+					anoB = false;
                     break;
                 }
 
@@ -86,6 +87,7 @@
                     dia = 1;
                     mes = mes + 1;
                     document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+					anoB = false;
                     break;
                 }
             }
