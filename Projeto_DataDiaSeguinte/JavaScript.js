@@ -1,111 +1,146 @@
 ﻿$(document).ready(function () {
-        var date = new Date($('#date-input').val());
-        var anoB = false;
-        day = date.getDate();
-        month = date.getMonth() + 1;
-        year = date.getFullYear();
 
 
     $('#submit').click(function () {
-        
-        //alert([day, month, year].join('/'));
+        var date = new Date($('#date-input').val());
+        date.setDate(date.getDate());
+        var anoB = false;
+        var day = String(date.getDate());
+        var month = String(date.getMonth() + 1);
+        var year = String(date.getFullYear());
 
-        if (year % 4 == 0)
-        {
-            anoB = true;
-        } else if (year % 100 == 0)
-        {
-            anoB = false;
-        } else if (year % 400 == 0)
-        {
-            anoB = true;
+        //converter as variaveis para inteiros
+        var dia = parseInt(day);
+        var mes = parseInt(month);
+        var ano = parseInt(year);
+
+        while (dia > 0 & mes > 0 & ano > 0) {
+
+            if (anoB % 4 == 0) {
+                anoB = true;
+            }
+            else if (anoB % 100 == 0) {
+                anoB = false;
+            } else if (anoB % 400 == 0) {
+                anoB = true;
+            }
+
+            //meses que acabam em 31
+            if (mes == 1 || mes == 3 || mes == 5 || mes == 7 || mes == 8 || mes == 10) {
+                if (dia < 31) {
+                    dia = dia + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+
+                if (dia == 31) {
+                    dia = 1;
+                    mes = mes + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+            }
+
+            //meses que acabam em 30
+            if (mes == 4 || mes == 6 || mes == 9 || mes == 11) {
+                if (dia < 30) {
+                    dia = dia + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+
+                if (dia == 30) {
+                    dia = 1;
+                    mes = mes + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+            }
+
+            //dezembro
+            if (mes == 12) {
+                if (dia < 31) {
+                    dia = dia + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+
+                if (dia == 31) {
+                    dia = 1;
+                    mes = 1;
+                    ano = ano + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+            }
+
+            //fevereiro
+            if (mes == 2 & anoB == true) {
+                if (dia < 29) {
+                    dia = dia + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+
+                if (dia == 29) {
+                    dia = 1;
+                    mes = mes + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+            }
+
+            if (mes == 2 & anoB == false) {
+                if (dia < 28) {
+                    dia = dia + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+
+                if (dia == 28) {
+                    dia = 1;
+                    mes = mes + 1;
+                    document.getElementById('resultado').innerHTML = [dia, mes, ano].join('/');
+                    break;
+                }
+            }
         }
 
-        switch (month == 1 & month == 3 & month == 5 & month == 7 & month == 8 & month == 10)
-        {
-            case 1:
-                if (day < 31) {
-                    day = day + 1;
-                }
-                break;
-            case 2:
-                if (day == 31) {
-                    day = 1;
-                    month = month + 1;
-                }
-                break;
-            default:
-                break;
-        }
-
-        switch (month == 4 & month == 6 & month == 9 & month == 11) {
-            case 1:
-                if (day < 31) {
-                    day = day + 1;
-                }
-                break;
-            case 2:
-                if (day == 31) {
-                    day = 1;
-                    month = month + 1;
-                }
-                break;
-            default:
-                break;
-        }
-
-        switch (month == 12) {
-            case 1:
-                if (day < 31) {
-                    day = day + 1;
-                }
-                break;
-            case 2:
-                if (day == 31) {
-                    day = 1;
-                    month = 1;
-                    year = year + 1;
-                }
-                break;
-            default:
-                break;
-        }
-
-        switch (month == 2 & anoB == true) {
-            case 1:
-                if (day < 29) {
-                    day = day + 1;
-                }
-                
-                break;
-            case 2:
-                if (day == 29) {
-                    day = 1;
-                    month = month + 1;
-                }
-                break;
-            default:
-                break;
-        }
-
-        switch (month == 2 & anoB == false) {
-            case 1:
-                if (day < 28) {
-                    day = day + 1;
-                }
-
-                break;
-            case 2:
-                if (day == 28) {
-                    day = 1;
-                    month = month + 1;
-                }
-                break;
-            default:
-                break;
-        }
-
-        alert([day, month, year].join('/'));
     });
-       
+
 });
+
+
+//recursivo
+function factorial(n) {
+    if (n == 1) {
+        return 1;
+    }
+
+    return n * factorial(n - 1);
+}
+
+function calcularfatorial() {
+    var input = document.getElementById('num1').value;
+    var result = factorial(input);
+
+    document.getElementById('resultadofatorial').innerHTML = result;
+}
+
+
+//nao recursivo
+function factorial2(num) {
+    var result;
+    var num = document.getElementById('num1').value;
+
+    if (num === 0 || num === 1)
+        result = 1;
+
+    for (var i = num - 1; i >= 1; i--) {
+
+        num = num * i;
+        result = num;
+    }
+
+    document.getElementById('resultadofatorial').innerHTML = result;
+}
